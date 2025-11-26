@@ -1,0 +1,198 @@
+:root{
+  --bg-deep:#071018;
+  --accent1:#8ff3ff;
+  --accent2:#ff7bff;
+  --accent3:#ffd36b;
+  --muted: rgba(255,255,255,0.65);
+}
+
+html,body{
+  height:100%;
+  margin:0;
+  font-family: "Cinzel", "Cormorant Garamond", Georgia, serif;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(143,243,255,0.06), transparent 10%),
+              radial-gradient(800px 400px at 90% 80%, rgba(255,123,255,0.05), transparent 12%),
+              linear-gradient(180deg, var(--bg-deep) 0%, #041018 50%, #081018 100%);
+  color:#e6f7ff;
+  overflow-y:auto;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.02) 0 1px, transparent 1px),
+                    radial-gradient(circle at 60% 80%, rgba(255,255,255,0.018) 0 1px, transparent 1px);
+  background-size:3px 3px, 4px 4px;
+  opacity:0.9;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  filter:blur(0.6px) contrast(1.2);
+}
+
+header{
+  text-align:center;
+  padding-top:40px;
+}
+
+header h1{
+  display:inline-block;
+  padding:18px 34px;
+  font-size:2.2rem;
+  letter-spacing:2px;
+  background:linear-gradient(90deg,var(--accent1),var(--accent2));
+  background-size:200% auto;
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  text-transform:uppercase;
+  border-radius:14px;
+  animation:shimmer 6s linear infinite;
+}
+
+header h1::after{
+  content:"✦ ✶ ✦";
+  display:block;
+  font-size:0.6rem;
+  margin-top:10px;
+  opacity:0.85;
+}
+
+main{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:48px 20px 80px 20px;
+}
+
+#formulario-login{
+  width:100%;
+  max-width:380px;
+  padding:28px;
+  border-radius:22px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  box-shadow:0 10px 40px rgba(3,6,10,0.7), inset 0 1px 0 rgba(255,255,255,0.02);
+  border:1px solid rgba(143,243,255,0.08);
+  backdrop-filter:blur(6px) saturate(120%);
+  color:var(--muted);
+  position:relative;
+}
+
+#formulario-login::before{
+  content:"\2726";
+  position:absolute;
+  top:-22px;
+  left:50%;
+  transform:translateX(-50%);
+  padding:8px 14px;
+  background:linear-gradient(90deg,var(--accent2),var(--accent3));
+  border-radius:999px;
+  font-size:1rem;
+  box-shadow:0 6px 20px rgba(0,0,0,0.5), 0 0 18px rgba(255,123,255,0.08);
+}
+
+label{
+  display:block;
+  margin-bottom:8px;
+  font-weight:600;
+  color:#cfeeff;
+}
+
+label[for="email"]::before{content:"✉️ ";}
+label[for="password"]::before{content:"🔒 ";}
+
+input[type="email"],
+input[type="password"]{
+  width:100%;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.04);
+  background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+  color:#f2fbff;
+  box-shadow:0 6px 18px rgba(2,8,12,0.6), inset 0 -2px 10px rgba(0,0,0,0.35);
+  margin-bottom:16px;
+  transition:transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+}
+
+input:focus{
+  transform:translateY(-2px);
+  border-color:var(--accent1);
+  box-shadow:0 10px 30px rgba(12,20,30,0.6), 0 0 22px rgba(143,243,255,0.08);
+}
+
+button[type="submit"]{
+  width:100%;
+  padding:14px 18px;
+  border-radius:14px;
+  border:0;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  background:linear-gradient(90deg, rgba(255,123,255,0.15), rgba(255,211,107,0.1));
+  color:#fff;
+  cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 8px 30px rgba(16,12,24,0.6), 0 0 30px rgba(255,123,255,0.04);
+}
+
+button[type="submit"]::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg, rgba(143,243,255,0.08), rgba(255,123,255,0.06), rgba(255,211,107,0.06));
+  transform:translateX(-110%);
+  transition:transform 450ms cubic-bezier(.22,.9,.34,1);
+}
+button[type="submit"]:hover::before{
+  transform:translateX(0%);
+}
+
+footer{
+  text-align:center;
+  padding:28px 10px 48px 10px;
+  color:rgba(255,255,255,0.45);
+  font-size:0.85rem;
+}
+
+.error-message {
+  color: #ff7b7b;
+  font-size: 0.85rem;
+  margin-top: -10px;
+  margin-bottom: 14px;
+  padding-left: 4px;
+  text-shadow: 0 0 6px rgba(255, 70, 70, 0.4);
+  font-weight: 600;
+}
+
+.register-link {
+  font-weight:600;
+  margin-top:16px;
+  text-align:center;
+  color: var(--accent2);
+  font-size:0.95rem;
+}
+
+.register-link a {
+  color: var(--accent3);
+  text-decoration:underline;
+  font-weight:700;
+  transition: all 0.3s ease;
+}
+
+.register-link a:hover {
+  color: var(--accent3);
+  text-shadow: 0 0 8px rgba(255, 248, 143, 0.8);
+}
+
+@keyframes shimmer{
+  0%{background-position:-200% 0}
+  100%{background-position:200% 0}
+}
+
+@media(min-width:900px){
+  #formulario-login{
+    border-left:6px solid rgba(255,215,107,0.06);
+    border-right:6px solid rgba(255,123,255,0.03);
+  }
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style-login.css">
+</head>
+<body>
+    <header>
+        <h1>Login Page</h1>
+    </header>
+
+    <main>
+        <form action="/login" id="formulario-login" method="POST">
+
+            <div class="field">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email">
+            </div>
+
+            <div class="field">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <p class="register-link">
+            Aún no estás registrado? Registrate <a href="../register/register.html">aquí</a>
+        </p>
+    </main>
+
+    <footer>
+        <p>&copy; Proyecto Intermodular VSgame</p>
+    </footer>
+
+    <script src="login.js"></script>
+</body>
+</html>
