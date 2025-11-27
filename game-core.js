@@ -119,6 +119,20 @@ class GameCore {
         this.actualizarCartasActuales();
     }
 
+    logout() {
+        fetch("/api/logout.php")
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = "../login/login.html";
+                } else {
+                    console.error("Error HTTP:", response.status);
+                }
+            })
+            .catch(error => {
+                console.error("Error de red:", error);
+            });
+    }
+
     actualizarCartasActuales() {
 
         this.cartaJugador = this.mazoJugador.length > 0

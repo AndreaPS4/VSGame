@@ -49,7 +49,7 @@ var elementoBandera = document.getElementById("bandera");
 var imagenBandera   = document.querySelector(".win1");
 
 var botonReiniciar = document.getElementById("restartGame");
-
+var botonLogout    = document.getElementById("logout");
 
 var popupFinal     = document.getElementById("popup-final");
 var popupNombre    = document.getElementById("popup-nombre");
@@ -210,7 +210,13 @@ botonDefender.addEventListener("click", function (evento) {
 
 // Botón REINICIAR
 botonReiniciar.addEventListener("click", function () {
-    juego.reiniciar();
+    juego.reset();
+    actualizarInterfaz();
+});
+
+// Botón LOGOUT
+botonLogout.addEventListener("click", function () {
+    juego.logout();
     actualizarInterfaz();
 });
 
