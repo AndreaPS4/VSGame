@@ -1,19 +1,20 @@
 <?php
-
+include_once '../models/Card.php';
 class GameController 
 {
-    public static function create () {
+    public static function create  ()    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $name = $_POST['username'] ?? '';
-            $ataque = $_POST['ataque'] ?? '';
-            $defensa = $_POST['defensa'] ?? '';
-            $imagen = $_FILES['imagen'] ?? '';
-            $tipo = $_POST['tipo'] ?? '';
+            $name = $_POST['name'] ?? '';
+            $ataque = $_POST['attack'] ?? '';
+            $defense = $_POST['defense'] ?? '';
+            $image = $_FILES['file'] ?? '';
+            $type = $_POST['type'] ?? '';
 
-            Game::save($name, $ataque, $defensa, $imagen, $tipo);
+            Card::save($name, $ataque, $defensa, $image, $type);
             header('Location: ../index.php');
             exit();            
         } 
         include_once '../views/login.php';
     }
+    
 }

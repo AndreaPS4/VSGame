@@ -3,16 +3,16 @@ require_once __DIR__ . '/Database.php';
 
 class Card
 {
-    public static function insert(string $nombre, string $ataque, string $defensa, string $imagen, string $poderEspecial, string $tipo): bool
+    public static function insert(string $nombre, string $ataque, string $defensa, string $imagen, string $tipo): bool
     {
         $conn = Connection::conn();
-        $query = "INSERT INTO usuarios (nombre, ataque, defensa, imagen, poderEspecial, tipo) VALUES (?,?,?,?,?,?)";
+        $query = "INSERT INTO usuarios (nombre, ataque, defensa, imagen, tipo) VALUES (?,?,?,?,?)";
         $stmt = $conn->prepare($query);
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
         move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file);
         $imagen = $target_file;
-        $stmt->bind_param('ssssss', $nombre, $ataque, $defensa, $imagen, $poderEspecial,  $tipo);
+        $stmt->bind_param('sssss', $nombre, $ataque, $defensa, $imagen,  $tipo);
         return $stmt->execute();
     }
 
@@ -32,6 +32,14 @@ class Card
         $query = "DELETE FROM cartas WHERE id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("i", $id);
+        return $stmt->execute();
+    }
+
+    public static function edit(int $id, string $nombre, string $ataque, string $defensa, string $imagen, string $tipo) : bool {
+        $conn = Connection::conn();
+        $query = "UPDATE cartas  SET nombre = ?, ataque = ?, defensa = ?, imagen = ?, tipo = ? WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ssssss", $nombre, $ataque, $defensa, $imagen, $tipo, $id);
         return $stmt->execute();
     }
 }

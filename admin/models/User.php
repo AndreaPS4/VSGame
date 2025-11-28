@@ -22,7 +22,7 @@ class User
         return $conn->query($query);
     }
 
-    public static function actualizar($usuarioId, $name, $email, $password): bool
+    public static function edit($usuarioId, $name, $email, $password): bool
     {
         $conn = Connection::conn();
         $query = "UPDATE usuarios SET name = ?, email = ?, password = ? WHERE usuario_id = ? ";
