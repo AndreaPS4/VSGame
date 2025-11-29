@@ -9,6 +9,14 @@ class AuthService
         return isset($_SESSION['admin']);
     }
 
+    public static function middleware(): void
+    {
+        if (! self::check()) {
+            header('Location: /admin/login');
+            exit();
+        }
+    }
+
     public static function login(string $username, string $password): bool
     {
         if ($username === 'admin' && $password === 'admin') {
@@ -23,7 +31,7 @@ class AuthService
         return false;
     }
 
-    public static function logout(string $username, string $password): void
+    public static function logout(): void
     {
         SessionService::destroy();
     }

@@ -8,6 +8,7 @@
                 <li><a href="/admin/cards">lista de Cartas</a></li>
                 <li><a href="/admin/users/create">Crear usuario</a></li>
                 <li><a href="/admin/users">lista de usuarios</a></li>
+                <li><a href="/admin/logout">salir</a></li>
             </ul>
         </nav>
     </header>

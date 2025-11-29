@@ -1,0 +1,47 @@
+/* ======== HEADER ======== */
+header {
+	background: #161824;
+	padding: 15px 0;
+	margin-bottom: 25px;
+	box-shadow: 0 0 15px rgba(124, 240, 255, 0.15);
+	border-bottom: 2px solid #1f2233;
+}
+
+/* ======== NAV ======== */
+nav ul {
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	gap: 25px;
+}
+
+nav ul li a {
+	color: #7cf0ff;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 16px;
+	padding: 10px 14px;
+	border-radius: 6px;
+	transition: 0.2s ease-in-out;
+}
+
+/* Hover */
+nav ul li a:hover {
+	background: #23263a;
+	box-shadow: 0 0 10px #7cf0ff55;
+}
+
+/* Estado activo si lo quieres usar */
+nav ul li a.active {
+	background: #1a1c2a;
+	box-shadow: 0 0 12px #7cf0ff;
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 600px) {
+	nav ul {
+		flex-direction: column;
+		gap: 12px;
+		text-align: center;
+	}
+}

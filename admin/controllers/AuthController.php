@@ -17,11 +17,20 @@ class AuthController
                 $_SESSION['admin'] = [
                     'name' => 'Admin',
                 ];
+                header('Location: /admin');
+                exit();
             }
 
             $error = 'Credecnailes incorrectas';
         }
 
         include __DIR__ . '/../views/login.php';
+    }
+
+    public static function logout()
+    {
+        AuthService::logout();
+        header('Location: /admin/login');
+        exit();
     }
 }
