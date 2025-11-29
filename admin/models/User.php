@@ -7,12 +7,22 @@ class User
     {
         $conn = Connection::conn();
         $query = "INSERT INTO usuarios (username, email, password) VALUES (?,?,?)";
-         
+
         $stmt = $conn->prepare($query);
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         $stmt->bind_param('sss', $name, $email, $hashed_password);
 
         return $stmt->execute();
+    }
+
+    public static function selectAll(): array
+    {
+        $conn = Connection::conn();
+        $query = "SELECT * FROM usuarios ORDER BY id DESC";
+        $stmt = $conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public static function delete(int $usarioId): bool

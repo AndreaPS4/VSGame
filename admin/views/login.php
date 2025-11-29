@@ -3,7 +3,7 @@
 <div class="login-container">
     <h2>Iniciar sesión</h2>
 
-    <form action="../controllers/UserController.php" method="POST">
+    <form method="POST">
         <div class="form-group">
             <label for="usuario">Usuario:</label>
             <input type="text" name="username" id="usuario" required>
@@ -18,10 +18,8 @@
     </form>
 
     <?php
-    if (isset($_GET['error'])) {
-        echo '<p class="error">' . htmlspecialchars($_GET['error']) . '</p>';
+    if ($error) {
+        echo '<p class="error">' . htmlspecialchars($error) . '</p>';
     }
     ?>
 </div>
-
-<?php include 'footer.php'; ?>

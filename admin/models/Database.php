@@ -1,21 +1,18 @@
 <?php
 
-use Exception;
-use mysqli;
-
 class Connection
 {
     public static function conn(): mysqli
     {
         // Cargamos la configuración
-        $config = require __DIR__ . '/../config/database.php';
+        require __DIR__ . '/../config/database.php';
 
         $conn = new mysqli(
-            $config['DB_HOST'],
-            $config['DB_USER'],
-            $config['DB_PASS'],
-            $config['DB_NAME'],
-            $config['DB_PORT']
+            $config['database']['host'],
+            $config['database']['user'],
+            $config['database']['pass'],
+            $config['database']['database'],
+            $config['database']['port']
         );
 
         if ($conn->connect_error) {

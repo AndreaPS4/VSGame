@@ -1,6 +1,11 @@
 <?php
-$SERVER_NAME = 'localhost';
-$DATABASE = 'vsgame';
-$DB_USER = 'root';
-$PORT = 3006;
-$DB_PASS = '';
+
+$config = [
+    'database' => [
+        'host' => 'localhost',
+        'port' => 3306,
+        'database' => 'vsgame',
+        'user' => 'root',
+        'pass' => '',
+    ]
+];
