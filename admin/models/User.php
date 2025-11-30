@@ -3,14 +3,14 @@ require_once __DIR__ . '/Database.php';
 
 class User
 {
-    public static function create($name, $email, $password): bool
+    public static function create($username, $email, $password): bool
     {
         $conn = Connection::conn();
         $query = "INSERT INTO usuarios (username, email, password) VALUES (?,?,?)";
 
         $stmt = $conn->prepare($query);
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt->bind_param('sss', $name, $email, $hashed_password);
+        $stmt->bind_param('sss', $username, $email, $hashed_password);
 
         return $stmt->execute();
     }
@@ -42,5 +42,15 @@ class User
         $stmt->bind_param('sssi', $nombre,  $email, $password, $usuarioId);
 
         return $stmt->execute();
+    }
+    public static function getByUserName(string $username): array|false|null
+    {
+        $conn = Connection::conn();
+        $query = "SELECT * FROM usuarios WHERE username = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
     }
 }
