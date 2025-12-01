@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
     <title>Juego de Cartas</title>
 </head>
 <body>
@@ -11,7 +11,7 @@
 <div class="container">
 
     <div class="card">
-        <img src="img/cards/1_card.jpg" alt="Carta del Jugador">
+        <img src="../img/cards/1_card.jpg" alt="Carta del Jugador">
 
         <div class="stats">
             <div class="stat attack" id="atk-jugador">0</div>
@@ -19,10 +19,10 @@
         </div>
     </div>
 
-    <img src="img/vs.png" alt="VS" class="vs">
+    <img src="../img/vs.png" alt="VS" class="vs">
 
     <div class="card enemy-card">
-        <img src="img/cards/2_card.jpg" alt="Carta de la Máquina">
+        <img src="../img/cards/2_card.jpg" alt="Carta de la Máquina">
 
         <div class="stats">
             <div class="stat attack" id="atk-rival">0</div>
@@ -35,25 +35,27 @@
 <div class="container">
     <div class="buttons">
       <a href="#" id="atacar">
-        <img src="img/atacar.png" alt="Atacar" class="btn">
+        <img src="../img/atacar.png" alt="Atacar" class="btn">
       </a>
 
       <a href="#" id="defensa">
-        <img src="img/defender.png" alt="Defender" class="btn">
+        <img src="../img/defender.png" alt="Defender" class="btn">
       </a>
     </div>
 </div>
 
-<img src="img/restartgame.png" alt="reiniciar" id="restartGame">
+<img src="../img/restartgame.png" alt="reiniciar" id="restartGame">
+<img src="../img/logout.png" alt="logout" id="logout">
+
 
 <div class="score">
     <div class="contentScore">
 
         <div id="bandera" class="show">
-            <img src="img/win1.png" alt="win1" class="win1">
+            <img src="../img/win1.png" alt="win1" class="win1">
         </div>
 
-        <img src="img/score.png" alt="score" id="scoreGame">
+        <img src="../img/score.png" alt="score" id="scoreGame">
 
         <div class="ronda">1</div>
         <div class="puntuacionJ1">0</div>
@@ -82,8 +84,8 @@
     </div>
 </div>
 
-<script src="game-core.js"></script>
-<script src="game.js" defer></script>
+<script src="../assets/js/game-core.js"></script>
+<script src="../assets/js/game.js" defer></script>
 
 </body>
 </html>

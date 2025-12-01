@@ -7,7 +7,7 @@ html{
   min-height: 100%;
 }
 body{
-  background: url('img/fondo.jpg'); 
+  background: url('../../img/fondo.jpg'); 
   background-size: cover !important; 
   background-position: center center; 
   background-repeat: no-repeat;
@@ -186,6 +186,17 @@ button {
   transition: all 1s ease-in-out;
 }
 #restartGame:hover{
+  top: 15px;
+  transition: all 1s ease-in-out;
+}
+#logout{
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 100px;
+  transition: all 1s ease-in-out;
+}
+#logout:hover{
   top: 15px;
   transition: all 1s ease-in-out;
 }
