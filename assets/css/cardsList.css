@@ -1,0 +1,77 @@
+/* ======== RESET BÁSICO ======== */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+/* ======== BODY ======== */
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	background: #0e0f19;
+	color: #f2f2f2;
+	padding: 20px;
+}
+
+/* ======== TÍTULO ======== */
+h1 {
+	text-align: center;
+	margin-bottom: 25px;
+	font-size: 32px;
+	color: #7cf0ff;
+	text-shadow: 0px 0px 10px #7cf0ff;
+}
+
+/* ======== TABLA ======== */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #161824;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0, 255, 255, 0.15);
+}
+
+/* Encabezados */
+table th {
+	background: #1f2233;
+	padding: 14px;
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: 1px;
+	border-bottom: 2px solid #2c2f44;
+}
+
+/* Filas */
+table td {
+	padding: 12px;
+	text-align: center;
+	border-bottom: 1px solid #242736;
+}
+
+/* Alternar color filas */
+table tr:nth-child(even) {
+	background: #1a1c2a;
+}
+
+/* Hover fila */
+table tr:hover {
+	background: #23263a;
+	transition: 0.2s;
+}
+
+/* ======== IMÁGENES ======== */
+table img {
+	width: 70px;
+	height: 70px;
+	object-fit: cover;
+	border-radius: 6px;
+	border: 2px solid #7cf0ff;
+	box-shadow: 0 0 10px #7cf0ff55;
+	transition: 0.2s ease-in-out;
+}
+
+table img:hover {
+	transform: scale(1.1);
+	box-shadow: 0 0 14px #7cf0ff;
+}
