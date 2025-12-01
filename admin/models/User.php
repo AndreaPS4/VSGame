@@ -28,21 +28,41 @@ class User
     public static function delete(int $usarioId): bool
     {
         $conn = Connection::conn();
-        $query = "DELETE FROM usuarios WHERE usuario_id = $usarioId";
+        $query = "DELETE FROM usuarios WHERE id = $usarioId";
         return $conn->query($query);
     }
 
-    public static function edit($usuarioId, $name, $email, $password): bool
+    public static function edit($usuarioId, $username, $email, $password): bool
     {
         $conn = Connection::conn();
-        $query = "UPDATE usuarios SET name = ?, email = ?, password = ? WHERE usuario_id = ? ";
+        $query = empty($password)
+            ? "UPDATE usuarios SET username = ?, email = ? WHERE id = ? "
+            : "UPDATE usuarios SET username = ?, email = ?, password = ? WHERE id = ? ";
 
 
         $stmt = $conn->prepare($query);
-        $stmt->bind_param('sssi', $nombre,  $email, $password, $usuarioId);
+        if (empty($password)) {
+            $stmt->bind_param('ssi', $username,  $email, $usuarioId);
+        } else {
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $stmt->bind_param('sssi', $username,  $email, $hashed_password, $usuarioId);
+        }
+
 
         return $stmt->execute();
     }
+
+    public static function getById(int|string $userId): array|false|null
+    {
+        $conn = Connection::conn();
+        $query = "SELECT * FROM usuarios WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
     public static function getByUserName(string $username): array|false|null
     {
         $conn = Connection::conn();

@@ -17,12 +17,15 @@
             <th>Id</th>
             <th>Usuario</th>
             <th>Email</th>
+            <th colspan="2">accion</th>
         </tr>
         <?php foreach ($users as $user) { ?>
             <tr>
                 <td><?= $user['id'] ?></td>
                 <td><?= $user['username'] ?></td>
                 <td><?= $user['email'] ?></td>
+                <td><a href="/admin/users/edit?id=<?= $user['id'] ?>">editar</a></td>
+                <td><a href="/admin/users/delete?id=<?= $user['id'] ?>">eliminar</a></td>
             </tr>
         <?php } ?>
     </table>

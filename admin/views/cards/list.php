@@ -20,6 +20,7 @@
             <th>defensa</th>
             <th>imagen</th>
             <th>tipo</th>
+            <th colspan="2">accion</th>
         </tr>
 
         <?php foreach ($cards as $card) { ?>
@@ -29,6 +30,8 @@
                 <td><?= $card['defensa'] ?></td>
                 <td> <img src="<?= $card['imagen'] ?>" alt="<?= $card['nombre'] ?>"></td>
                 <td><?= $card['tipo'] ?></td>
+                <td><button>editar</button></td>
+                <td><button>eliminar</button></td>
 
             </tr>
         <?php } ?>

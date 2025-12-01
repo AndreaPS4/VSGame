@@ -3,7 +3,7 @@
 include_once __DIR__ . '/services/SessionService.php';
 include_once __DIR__ . '/services/AuthService.php';
 
-$path = $_SERVER['REQUEST_URI'];
+$path = explode('?', $_SERVER['REQUEST_URI'])[0];
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($path) {
@@ -20,6 +20,16 @@ switch ($path) {
         AuthService::middleware();
         include __DIR__ .  '/controllers/UserController.php';
         UserController::create();
+        break;
+    case '/admin/users/edit':
+        AuthService::middleware();
+        include __DIR__ .  '/controllers/UserController.php';
+        UserController::edit($_GET['id'] ?? $_POST['id']);
+        break;
+    case '/admin/users/delete':
+        AuthService::middleware();
+        include __DIR__ .  '/controllers/UserController.php';
+        UserController::delete($_GET['id'] ?? $_POST['id']);
         break;
     case '/admin/cards':
         AuthService::middleware();
