@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <img src="../img/vs.png" alt="VS" class="vs">
+    <img src="../assets/img/vs.png" alt="VS" class="vs">
 
     <div class="card enemy-card">
         <img id="img-rival" src="" alt="Carta de la Máquina">
@@ -35,27 +35,27 @@
 <div class="container">
     <div class="buttons">
       <a href="#" id="atacar">
-        <img src="../img/atacar.png" alt="Atacar" class="btn">
+        <img src="../assets/img/atacar.png" alt="Atacar" class="btn">
       </a>
 
       <a href="#" id="defensa">
-        <img src="../img/defender.png" alt="Defender" class="btn">
+        <img src="../assets/img/defender.png" alt="Defender" class="btn">
       </a>
     </div>
 </div>
 
-<img src="../img/restartgame.png" alt="reiniciar" id="restartGame">
-<img src="../img/logout.png" alt="logout" id="logout">
+<img src="../assets/img/restartgame.png" alt="reiniciar" id="restartGame">
+<img src="../assets/img/logout.png" alt="logout" id="logout">
 
 
 <div class="score">
     <div class="contentScore">
 
         <div id="bandera" class="show">
-            <img src="../img/win1.png" alt="win1" class="win1">
+            <img src="../assets/img/win1.png" alt="win1" class="win1">
         </div>
 
-        <img src="../img/score.png" alt="score" id="scoreGame">
+        <img src="../assets/img/score.png" alt="score" id="scoreGame">
 
         <div class="ronda">1</div>
         <div class="puntuacionJ1">0</div>

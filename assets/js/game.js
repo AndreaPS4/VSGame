@@ -97,9 +97,9 @@ function actualizarInterfaz() {
 
 function mostrarResultadoTemporal(ganador) {
 
-    if (ganador === "jugador") imagenBandera.src = "../img/win1.png";
-    else if (ganador === "rival") imagenBandera.src = "../img/win2.png";
-    else imagenBandera.src = "../img/win1.png";
+    if (ganador === "jugador") imagenBandera.src = "../assets/img/win1.png";
+    else if (ganador === "rival") imagenBandera.src = "../assets/img/win2.png";
+    else imagenBandera.src = "../assets/img/win1.png";
 
     elementoBandera.classList.add("show");
 
