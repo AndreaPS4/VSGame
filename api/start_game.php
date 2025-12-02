@@ -6,7 +6,7 @@ session_start();
 
 if (empty($_SESSION['user_id'])) {
     header("HTTP/1.1 401 Unauthorized");
-    echo json_encode(['succes' => false]);
+    echo json_encode(['success' => false]);
     exit();
 }
 

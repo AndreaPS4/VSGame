@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("formulario-login");
-    const emailInput = document.getElementById("email");
+    const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
 
     function createErrorMessage(input) {
@@ -11,19 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
         return msg;
     }
 
-    const emailMsg = createErrorMessage(emailInput);
+    const usernameMsg = createErrorMessage(usernameInput);
     const passwordMsg = createErrorMessage(passwordInput);
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
 
-    emailInput.addEventListener("blur", () => {
-        if (!emailRegex.test(emailInput.value)) {
-            emailInput.classList.add("input-error");
-            emailMsg.innerText = "✧ El formato del email no es válido.";
+    usernameInput.addEventListener("blur", () => {
+        if (usernameInput.value.trim() === "") {
+            usernameInput.classList.add("input-error");
+            usernameMsg.innerText = "✧ El nombre de usuario es obligatorio.";
         } else {
-            emailInput.classList.remove("input-error");
-            emailMsg.innerText = "";
+            usernameInput.classList.remove("input-error");
+            usernameMsg.innerText = "";
         }
     });
 
@@ -42,9 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         let valid = true;
 
-        if (!emailRegex.test(emailInput.value)) {
-            emailInput.classList.add("input-error");
-            emailMsg.innerText = "✧ El formato del email no es válido.";
+        if (usernameInput.value.trim() === "") {
+            usernameInput.classList.add("input-error");
+            usernameMsg.innerText = "✧ El nombre de usuario es obligatorio.";
             valid = false;
         }
 
@@ -58,11 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!valid) return;
 
         try {
-            const response = await fetch("/api/login.php", {
+            const response = await fetch("/PROYECTO_2EV/api/login.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    email: emailInput.value.trim(),
+                    username: usernameInput.value.trim(),
                     password: passwordInput.value.trim()
                 })
             });
@@ -70,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
 
             if (data.success) {
-                window.location.href = "/login/login.html";
+                window.location.href = "../admin/index.php";
             } else {
                 alert("Error: " + data.message);
             }

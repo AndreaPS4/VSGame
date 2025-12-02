@@ -98,10 +98,10 @@ label{
   color:#cfeeff;
 }
 
-label[for="email"]::before{content:"✉️ ";}
+label[for="text"]::before{content:"✉️ ";}
 label[for="password"]::before{content:"🔒 ";}
 
-input[type="email"],
+input[type="text"],
 input[type="password"]{
   width:100%;
   padding:12px 14px;

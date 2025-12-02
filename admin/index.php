@@ -11,7 +11,7 @@
 <div class="container">
 
     <div class="card">
-        <img src="../img/cards/1_card.jpg" alt="Carta del Jugador">
+        <img id="img-jugador" src="" alt="Carta del Jugador">
 
         <div class="stats">
             <div class="stat attack" id="atk-jugador">0</div>
@@ -22,7 +22,7 @@
     <img src="../img/vs.png" alt="VS" class="vs">
 
     <div class="card enemy-card">
-        <img src="../img/cards/2_card.jpg" alt="Carta de la Máquina">
+        <img id="img-rival" src="" alt="Carta de la Máquina">
 
         <div class="stats">
             <div class="stat attack" id="atk-rival">0</div>
@@ -69,7 +69,6 @@
         <h2>Resultado de la partida</h2>
 
         <p><strong>Jugador:</strong> <span id="popup-nombre"></span></p>
-        <p><strong>Dificultad:</strong> <span id="popup-dificultad"></span></p>
         <p><strong>Puntuación jugador:</strong> <span id="popup-pj"></span></p>
         <p><strong>Puntuación rival:</strong> <span id="popup-pr"></span></p>
         <p><strong>Rondas jugadas:</strong> <span id="popup-rondas"></span></p>

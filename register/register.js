@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!valid) return;
 
         try {
-            const response = await fetch("/api/register.php", {
+            const response = await fetch("/PROYECTO_2EV/api/register.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (data.success) {
                 alert("✔ Registro completado con éxito");
-                window.location.href = "/login/login.html";
+                window.location.href = "../login/login.html";
             } else {
                 alert("Error: " + data.message);
             }

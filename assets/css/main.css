@@ -184,6 +184,7 @@ button {
   right: 20px;
   width: 100px;
   transition: all 1s ease-in-out;
+  cursor: pointer
 }
 #restartGame:hover{
   top: 15px;
@@ -195,6 +196,7 @@ button {
   left: 20px;
   width: 100px;
   transition: all 1s ease-in-out;
+  cursor: pointer
 }
 #logout:hover{
   top: 15px;

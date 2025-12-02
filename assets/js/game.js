@@ -1,44 +1,48 @@
-var juego = new GameCore("normal");
+let nombreJugador = "Desconocido";
 
-var nombreJugador = "Desconocido";
+async function cargarNombreJugador() {
+    try {
+        const response = await fetch("/PROYECTO_2EV/api/check_login.php", {
+            method: "GET",
+            credentials: "include"
+        });
 
-function cargarNombreJugador() {
-
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/api/check_login.php", true);
-
-    xhr.onreadystatechange = function () {
-
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            try {
-                var respuesta = JSON.parse(xhr.responseText);
-
-                if (respuesta.logged === true && respuesta.username) {
-                    nombreJugador = respuesta.username;
-                }
-
-            } catch (e) {
-                console.error("Error procesando JSON de login:", e);
-            }
+        if (!response.ok) {
+            console.error("Error HTTP:", response.status);
+            return;
         }
-    };
 
-    xhr.send();
+        const data = await response.json();
+
+        if (data.logged_in === true && data.username) {
+            nombreJugador = data.username;
+        } else {
+            nombreJugador = "Invitado";
+        }
+
+        console.log("Nombre cargado:", nombreJugador);
+
+    } catch (error) {
+        console.error("Error verificando login:", error);
+    }
 }
 
 cargarNombreJugador();
 
-var imagenCartaJugador  = document.querySelector(".card img");
-var imagenCartaRival    = document.querySelector(".enemy-card img");
+var juego = new GameCore();
 
-var ataqueJugadorElem  = document.getElementById("ataque-jugador");
-var defensaJugadorElem = document.getElementById("defensa-jugador");
+async function iniciarJuegoCuandoEsteListo() {
+    while (!juego.initialized) {
+        await new Promise(r => setTimeout(r, 50));
+    }
 
-var ataqueRivalElem    = document.getElementById("ataque-rival");
-var defensaRivalElem   = document.getElementById("defensa-rival");
+    actualizarInterfaz();
+}
 
-var botonAtacar  = document.getElementById("atacar");
-var botonDefender = document.getElementById("defensa");
+iniciarJuegoCuandoEsteListo();
+
+var imagenCartaJugador  = document.getElementById("img-jugador");
+var imagenCartaRival    = document.getElementById("img-rival");
 
 var textoPuntuacionJ1 = document.querySelector(".puntuacionJ1");
 var textoPuntuacionJ2 = document.querySelector(".puntuacionJ2");
@@ -48,16 +52,16 @@ var textoRonda = document.querySelector(".ronda");
 var elementoBandera = document.getElementById("bandera");
 var imagenBandera   = document.querySelector(".win1");
 
+var botonAtacar  = document.getElementById("atacar");
+var botonDefender = document.getElementById("defensa");
 var botonReiniciar = document.getElementById("restartGame");
-
+var botonLogout = document.getElementById("logout");
 
 var popupFinal     = document.getElementById("popup-final");
 var popupNombre    = document.getElementById("popup-nombre");
 var popupPJ        = document.getElementById("popup-pj");
 var popupPR        = document.getElementById("popup-pr");
 var popupRondas    = document.getElementById("popup-rondas");
-var popupDificultad = document.getElementById("popup-dificultad");
-
 var popupBtnSi     = document.getElementById("popup-si");
 var popupBtnNo     = document.getElementById("popup-no");
 
@@ -66,50 +70,23 @@ function actualizarInterfaz() {
     var cartaJ = juego.cartaJugador;
     var cartaR = juego.cartaRival;
 
-    if (cartaJ !== null) {
-        imagenCartaJugador.src = cartaJ.imagen;
-    }
+    if (cartaJ) imagenCartaJugador.src = cartaJ.imagen;
+    if (cartaR) imagenCartaRival.src   = cartaR.imagen;
 
-    if (cartaR !== null) {
-        imagenCartaRival.src = cartaR.imagen;
-    }
-
-    if (!document.getElementById("stats-jugador")) {
-
-        var divStatsJ = document.createElement("div");
-        divStatsJ.id = "stats-jugador";
-        divStatsJ.className = "stats";
-
-        divStatsJ.innerHTML = `
-            <div class="stat attack" id="atk-jugador"></div>
-            <div class="stat defense" id="def-jugador"></div>
-        `;
-
-        imagenCartaJugador.parentElement.appendChild(divStatsJ);
-    }
-
-    if (!document.getElementById("stats-rival")) {
-
-        var divStatsR = document.createElement("div");
-        divStatsR.id = "stats-rival";
-        divStatsR.className = "stats";
-
-        divStatsR.innerHTML = `
-            <div class="stat attack" id="atk-rival"></div>
-            <div class="stat defense" id="def-rival"></div>
-        `;
-
-        imagenCartaRival.parentElement.appendChild(divStatsR);
-    }
-
-    if (cartaJ !== null) {
+    if (cartaJ) {
         document.getElementById("atk-jugador").textContent = cartaJ.ataque;
         document.getElementById("def-jugador").textContent = cartaJ.defensa;
+    } else {
+        document.getElementById("atk-jugador").textContent = "-";
+        document.getElementById("def-jugador").textContent = "-";
     }
 
-    if (cartaR !== null) {
+    if (cartaR) {
         document.getElementById("atk-rival").textContent = cartaR.ataque;
         document.getElementById("def-rival").textContent = cartaR.defensa;
+    } else {
+        document.getElementById("atk-rival").textContent = "-";
+        document.getElementById("def-rival").textContent = "-";
     }
 
     textoPuntuacionJ1.textContent = juego.puntuacionJugador;
@@ -120,30 +97,22 @@ function actualizarInterfaz() {
 
 function mostrarResultadoTemporal(ganador) {
 
-    if (ganador === "jugador") {
-        imagenBandera.src = "img/win1.png";
-    }
-    else if (ganador === "rival") {
-        imagenBandera.src = "img/win2.png";
-    }
-    else {
-        imagenBandera.src = "img/win1.png";
-    }
+    if (ganador === "jugador") imagenBandera.src = "../img/win1.png";
+    else if (ganador === "rival") imagenBandera.src = "../img/win2.png";
+    else imagenBandera.src = "../img/win1.png";
 
     elementoBandera.classList.add("show");
 
-    setTimeout(function () {
+    setTimeout(() => {
         elementoBandera.classList.remove("show");
     }, 3000);
 }
 
 function ejecutarJugada(accionElegida) {
 
-    selectorAccion.value = accionElegida;
-
     var resultado = juego.jugar(accionElegida);
 
-    if (resultado.ganador !== null) {
+    if (resultado.ganador) {
         mostrarResultadoTemporal(resultado.ganador);
     }
 
@@ -157,61 +126,68 @@ function ejecutarJugada(accionElegida) {
 function finDeJuego(ganadorFinal) {
 
     popupNombre.textContent = nombreJugador;
-    popupDificultad.textContent  = juego.dificultad;
-    popupPJ.textContent = juego.playerScore;
-    popupPR.textContent = juego.opponentScore;
-    popupRondas.textContent = juego.round - 1;
+
+    popupPJ.textContent = juego.puntuacionJugador;
+    popupPR.textContent = juego.puntuacionRival;
+    popupRondas.textContent = juego.ronda - 1;
 
     popupFinal.classList.remove("oculto");
 
-    popupBtnSi.onclick = function () {
+    popupBtnSi.onclick = async function () {
 
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/api/save_score.php", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
+    let victoriaInt = 0;
 
-        var datos = JSON.stringify({
-            jugador: nombreJugador,
-            dificultad: juego.dificultad,
-            puntuacionJugador: juego.playerScore,
-            puntuacionRival: juego.opponentScore,
-            rondas: juego.round - 1,
-            resultado: ganadorFinal
-        });
+        if (ganadorFinal === "jugador") victoriaInt = 1;
+        else if (ganadorFinal === "empate") victoriaInt = 2; 
 
-        xhr.onload = function () {
-            if (xhr.status === 200) {
+        const datos = {
+            puntuacion: juego.puntuacionJugador,
+            victoria: victoriaInt
+        };
+
+        try {
+            const response = await fetch("/PROYECTO_2EV/api/save_score.php", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(datos)
+            });
+
+            if (response.ok) {
                 alert("Puntuación guardada correctamente.");
             } else {
                 alert("Error al guardar puntuación.");
             }
-            window.location.href = "provisional.html";
-        };
 
-        xhr.send(datos);
+            juego.logout();
+
+        } catch (error) {
+            alert("Error de conexión.");
+        }
     };
 
     popupBtnNo.onclick = function () {
-        window.location.href = "provisional.html";
+        juego.logout();
     };
 }
 
-// Botón ATACAR
-botonAtacar.addEventListener("click", function (evento) {
-    evento.preventDefault();
+botonAtacar.addEventListener("click", e => {
+    e.preventDefault();
     ejecutarJugada("ataque");
 });
 
-// Botón DEFENDER
-botonDefender.addEventListener("click", function (evento) {
-    evento.preventDefault();
+botonDefender.addEventListener("click", e => {
+    e.preventDefault();
     ejecutarJugada("defensa");
 });
 
-// Botón REINICIAR
-botonReiniciar.addEventListener("click", function () {
-    juego.reiniciar();
+botonReiniciar.addEventListener("click", () => {
+    juego.reset();
     actualizarInterfaz();
+});
+
+botonLogout.addEventListener("click", () => {
+    juego.logout();
 });
 
 actualizarInterfaz();

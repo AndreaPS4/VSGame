@@ -1,49 +1,40 @@
 let ALL_CARDS = [];
 
 async function cargarCartas() {
-    return new Promise((resolve, reject) => {
+    try {
+        const response = await fetch("/PROYECTO_2EV/api/start_game.php", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+        });
 
-        const xhr = new XMLHttpRequest();
-        xhr.open("GET", "/api/start_game.php", true);
+        if (!response.ok) {
+            console.error("Error HTTP:", response.status);
+            return false;
+        }
 
-        xhr.onreadystatechange = function () {
+        const data = await response.json();
 
-            if (xhr.readyState === 4) {
+        if (!data.success) {
+            console.error("Error en la API: Usuario no autorizado");
+            return false;
+        }
 
-                if (xhr.status !== 200) {
-                    console.error("Error HTTP:", xhr.status);
-                    reject(false);
-                    return;
-                }
+        ALL_CARDS = data.cartas;
+        console.log("Cartas recibidas:", ALL_CARDS);
 
-                try {
-                    const data = JSON.parse(xhr.responseText);
-                    ALL_CARDS = data;
-                    console.log("Cartas recibidas:", ALL_CARDS);
-                    resolve(true);
-                }
-                catch (e) {
-                    console.error("JSON inválido:", e);
-                    reject(false);
-                }
-            }
-        };
+        return true;
 
-        xhr.onerror = function () {
-            console.error("Error de red");
-            reject(false);
-        };
-
-        xhr.send();
-    });
+    } catch (error) {
+        console.error("Error de red:", error);
+        return false;
+    }
 }
 
 class GameCore {
 
-    constructor(dificultad = "normal") {
-        this.dificultad = dificultad;
+    constructor() {
         this.initialized = false;
-
         this.init();
     }
 
@@ -59,47 +50,13 @@ class GameCore {
         this.initialized = true;
     }
 
-    obtenerCartasPorDificultad() {
-
-        if (this.dificultad === "facil") {
-            return ["A1","A2","B1","B2","C1","C2"];
-        }
-
-        if (this.dificultad === "normal") {
-            return ["B1","B2","C1","C2"];
-        }
-
-        if (this.dificultad === "dificil") {
-            return ["C1","C2"];
-        }
-
-        return ["A1","A2","B1","B2","C1","C2"];
-    }
-
-    generarMazo(maxCards, misCartas) {
-
-        let tiposPermitidos;
-
-        if (misCartas === "jugador") {
-            tiposPermitidos = ["A1","A2","B1","B2","C1","C2"];
-        }
-        else {
-            tiposPermitidos = this.obtenerCartasPorDificultad();
-        }
-
-        const cartasFiltradas = [];
-
-        for (const carta of ALL_CARDS) {
-            if (tiposPermitidos.includes(carta.tipo)) {
-                cartasFiltradas.push(carta);
-            }
-        }
+    generarMazo(maxCards) {
 
         const mazo = [];
 
         for (let i = 0; i < maxCards; i++) {
-            const indice = Math.floor(Math.random() * cartasFiltradas.length);
-            mazo.push(cartasFiltradas[indice]);
+            const indice = Math.floor(Math.random() * ALL_CARDS.length);
+            mazo.push(ALL_CARDS[indice]);
         }
 
         return mazo;
@@ -111,8 +68,8 @@ class GameCore {
         this.puntuacionJugador = 0;
         this.puntuacionRival = 0;
 
-        this.mazoJugador = this.generarMazo(10, "jugador");
-        this.mazoRival   = this.generarMazo(10, this.dificultad);
+        this.mazoJugador = this.generarMazo(10);
+        this.mazoRival   = this.generarMazo(10);
 
         this.historial = [];
 
@@ -120,7 +77,7 @@ class GameCore {
     }
 
     logout() {
-        fetch("/api/logout.php")
+        fetch("/PROYECTO_2EV/api/logout.php", { credentials: "include" })
             .then(response => {
                 if (response.ok) {
                     window.location.href = "../login/login.html";
@@ -134,14 +91,8 @@ class GameCore {
     }
 
     actualizarCartasActuales() {
-
-        this.cartaJugador = this.mazoJugador.length > 0
-            ? this.mazoJugador[0]
-            : null;
-
-        this.cartaRival = this.mazoRival.length > 0
-            ? this.mazoRival[0]
-            : null;
+        this.cartaJugador = this.mazoJugador[0] || null;
+        this.cartaRival   = this.mazoRival[0]   || null;
     }
 
     jugar(accion) {
@@ -155,8 +106,7 @@ class GameCore {
         if (accion === "ataque") {
             valorJugador = this.cartaJugador.ataque;
             valorRival   = this.cartaRival.ataque;
-        }
-        else {
+        } else {
             valorJugador = this.cartaJugador.defensa;
             valorRival   = this.cartaRival.defensa;
         }
@@ -177,7 +127,7 @@ class GameCore {
 
         this.historial.push({
             ronda: this.ronda,
-            accion: accion,
+            accion,
             cartaJugador: this.cartaJugador,
             cartaRival: this.cartaRival,
             valorJugador,
@@ -195,7 +145,7 @@ class GameCore {
 
             let ganadorFinal;
 
-            if (this.puntuacionJugador > this.puntuacionRival) ganadorFinal = "jugador";
+            if      (this.puntuacionJugador > this.puntuacionRival) ganadorFinal = "jugador";
             else if (this.puntuacionJugador < this.puntuacionRival) ganadorFinal = "rival";
             else ganadorFinal = "empate";
 
