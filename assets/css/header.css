@@ -1,4 +1,8 @@
-/* ======== HEADER ======== */
+
+*{
+ padding: 0;
+ box-sizing: border-box;
+}
 header {
 	background: #161824;
 	padding: 15px 0;
@@ -7,7 +11,6 @@ header {
 	border-bottom: 2px solid #1f2233;
 }
 
-/* ======== NAV ======== */
 nav ul {
 	list-style: none;
 	display: flex;
@@ -25,7 +28,7 @@ nav ul li a {
 	transition: 0.2s ease-in-out;
 }
 
-/* Hover */
+
 nav ul li a:hover {
 	background: #23263a;
 	box-shadow: 0 0 10px #7cf0ff55;
@@ -37,7 +40,6 @@ nav ul li a.active {
 	box-shadow: 0 0 12px #7cf0ff;
 }
 
-/* ======== RESPONSIVE ======== */
 @media (max-width: 600px) {
 	nav ul {
 		flex-direction: column;

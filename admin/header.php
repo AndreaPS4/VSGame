@@ -1,5 +1,4 @@
 <?php if (AuthService::check()) { ?>
-
     <header>
         <nav>
             <ul>
@@ -9,6 +8,7 @@
                 <li><a href="/admin/users/create">Crear usuario</a></li>
                 <li><a href="/admin/users">lista de usuarios</a></li>
                 <li><a href="/admin/logout">salir</a></li>
+                <li><?php echo "bienvenido " .  $_SESSION["admin"]['name'] ?></li>
             </ul>
         </nav>
     </header>

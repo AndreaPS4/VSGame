@@ -4,7 +4,6 @@ class Connection
 {
     public static function conn(): mysqli
     {
-        // Cargamos la configuración
         require __DIR__ . '/../config/database.php';
 
         $conn = new mysqli(
