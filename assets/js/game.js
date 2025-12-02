@@ -2,7 +2,7 @@ let nombreJugador = "Desconocido";
 
 async function cargarNombreJugador() {
     try {
-        const response = await fetch("/PROYECTO_2EV/api/check_login.php", {
+        const response = await fetch("../api/check_login.php", {
             method: "GET",
             credentials: "include"
         });
@@ -146,7 +146,7 @@ function finDeJuego(ganadorFinal) {
         };
 
         try {
-            const response = await fetch("/PROYECTO_2EV/api/save_score.php", {
+            const response = await fetch("../api/save_score.php", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },

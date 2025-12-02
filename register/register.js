@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!valid) return;
 
         try {
-            const response = await fetch("/PROYECTO_2EV/api/register.php", {
+            const response = await fetch("../api/register.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

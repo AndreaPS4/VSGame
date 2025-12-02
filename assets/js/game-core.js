@@ -2,7 +2,7 @@ let ALL_CARDS = [];
 
 async function cargarCartas() {
     try {
-        const response = await fetch("/PROYECTO_2EV/api/start_game.php", {
+        const response = await fetch("../api/start_game.php", {
             method: "POST",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
@@ -77,7 +77,7 @@ class GameCore {
     }
 
     logout() {
-        fetch("/PROYECTO_2EV/api/logout.php", { credentials: "include" })
+        fetch("../api/logout.php", { credentials: "include" })
             .then(response => {
                 if (response.ok) {
                     window.location.href = "../login/login.html";
