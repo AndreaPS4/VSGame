@@ -19,7 +19,7 @@ Revisión final del proyecto.
 ---
 
 # 🔧 Qué mejorar
-- organización previa.
+- Organización previa.
 - Gestión de tiempo.
 - Mantener entregables pequeños pero constantes.
 
