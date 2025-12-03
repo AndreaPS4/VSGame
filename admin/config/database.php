@@ -6,6 +6,6 @@ $config = [
         'port' => 3306,
         'database' => 'vsgame',
         'user' => 'root',
-        'pass' => 'root',
+        'pass' => '',
     ]
 ];

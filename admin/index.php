@@ -1,4 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <title>Juego de Cartas</title>
+</head>
+<body>
 
+<div class="container">
+
+    <div class="card">
+        <img id="img-jugador" src="" alt="Carta del Jugador">
+
+        <div class="stats">
+            <div class="stat attack" id="atk-jugador">0</div>
+            <div class="stat defense" id="def-jugador">0</div>
+        </div>
+    </div>
+
+    <img src="../assets/img/vs.png" alt="VS" class="vs">
+
+    <div class="card enemy-card">
+        <img id="img-rival" src="" alt="Carta de la Máquina">
+
+        <div class="stats">
+            <div class="stat attack" id="atk-rival">0</div>
+            <div class="stat defense" id="def-rival">0</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="buttons">
+      <a href="#" id="atacar">
+        <img src="../assets/img/atacar.png" alt="Atacar" class="btn">
+      </a>
+
+      <a href="#" id="defensa">
+        <img src="../assets/img/defender.png" alt="Defender" class="btn">
+      </a>
+    </div>
+</div>
+
+<img src="../assets/img/restartgame.png" alt="reiniciar" id="restartGame">
+<img src="../assets/img/logout.png" alt="logout" id="logout">
+
+
+<div class="score">
+    <div class="contentScore">
+
+        <div id="bandera" class="show">
+            <img src="../assets/img/win1.png" alt="win1" class="win1">
+        </div>
+
+        <img src="../assets/img/score.png" alt="score" id="scoreGame">
+
+        <div class="ronda">1</div>
+        <div class="puntuacionJ1">0</div>
+        <div class="puntuacionJ2">0</div>
+    </div>
+</div>
+
+<div id="popup-final" class="popup-final oculto">
+    <div class="popup-contenido">
+
+        <h2>Resultado de la partida</h2>
+
+        <p><strong>Jugador:</strong> <span id="popup-nombre"></span></p>
+        <p><strong>Puntuación jugador:</strong> <span id="popup-pj"></span></p>
+        <p><strong>Puntuación rival:</strong> <span id="popup-pr"></span></p>
+        <p><strong>Rondas jugadas:</strong> <span id="popup-rondas"></span></p>
+
+        <p>¿Deseas guardar esta partida?</p>
+
+        <div class="popup-botones">
+            <button id="popup-si">Sí, guardar</button>
+            <button id="popup-no">No, salir</button>
+        </div>
+
+    </div>
+</div>
+
+<script src="../assets/js/game-core.js"></script>
+<script src="../assets/js/game.js" defer></script>
+
+</body>
+</html>
 <?php
 
 include_once __DIR__ . '/services/SessionService.php';
